@@ -66,31 +66,25 @@ public class PasswordGeneratorTest {
     }
 
     @Test
-    public void shouldReturnPasswordContaining2NumbersAnd2SpecialCharacters(){
+    public void shouldReturnPasswordContaining2NumbersAnd2SpecialCharacters() {
         String password = p.generatePassword(10, 2, 2);
+        char[] specialCharacters = p.getSpecialCharArray();
 
         char[] passwordArray = password.toCharArray();
         int numberCount = 0;
         int specialCharCount = 0;
 
-        System.out.println(passwordArray);
+        for (char passwordCharacter : passwordArray) {
 
-        for (int i = 0; i < passwordArray.length; i++) {
-
-            if (passwordArray[i] >= '0' & passwordArray[i] <= '9') {
+            if (passwordCharacter >= '0' & passwordCharacter <= '9') {
                 numberCount++;
             }
 
-            if (passwordArray[i] == '£' ||
-            passwordArray[i] == '$' ||
-            passwordArray[i] == '!' ||
-            passwordArray[i] == '#' ||
-            passwordArray[i] == '@' ||
-            passwordArray[i] == '+' ||
-            passwordArray[i] == '-' ||
-            passwordArray[i] == '/' ||
-                passwordArray[i] == '*'){
+            for (char specialCharacter : specialCharacters) {
+
+                if (passwordCharacter == specialCharacter) {
                     specialCharCount++;
+                }
             }
         }
         assertThat(numberCount).isEqualTo(2);
